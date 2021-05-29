@@ -1,4 +1,4 @@
-ServerIP="10.0.0.2"
+ServerIP="192.168.29.28"
 ServerPort=5555
 
 PlayerSpeed=3
