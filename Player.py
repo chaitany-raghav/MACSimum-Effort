@@ -2,14 +2,15 @@ import pygame as pg
 import Config
 
 class Player():
-    def __init__(self,x,y,width,height,id,colour):
+    def __init__(self,x,y,width,height,i,a,colour):
         self.x=x
         self.y=y
         self.width=width
         self.height=height
         self.colour=colour
         self.rect=(x,y,width,height)
-        self.id=id
+        self.id=i
+        self.isActive=a
         self.vel=Config.PlayerSpeed
 
 

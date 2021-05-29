@@ -2,6 +2,7 @@ import pygame as pg
 from Network import Network
 from Player import *
 import Config
+from Ball import Ball
 
 width = Config.WindowWidth
 height = Config.WindowHeight
@@ -12,11 +13,13 @@ pg.display.set_caption("Client")
 
 PlayerID=-1
 
-def redrawWindow(win,players):
+def redrawWindow(win,players,ball):
 
     win.fill((255,255,255))
     for p in players:
-        p.draw(win)
+        if p.isActive:
+            p.draw(win)
+    ball.draw(win)
     pg.display.update()
 
 
@@ -36,6 +39,6 @@ def main():
                 pg.quit()
         
         p.move()
-        redrawWindow(win,data)
+        redrawWindow(win,data[0],data[1])
 
 main()

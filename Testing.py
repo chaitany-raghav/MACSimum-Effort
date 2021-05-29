@@ -9,17 +9,18 @@ win = pg.display.set_mode((width,height))
 pg.display.set_caption("Client")
 
 pos=[
-    Player(Config.PlayerOffSet,(Config.WindowHeight-Config.PlayerLength)/2,Config.PlayerWidth,Config.PlayerLength,(255,0,0)),
-    Player(Config.WindowWidth-Config.PlayerWidth-Config.PlayerOffSet,(Config.WindowHeight-Config.PlayerLength)/2,Config.PlayerWidth,Config.PlayerLength,(0,255,0)),
-    Player((Config.WindowWidth-Config.PlayerLength)/2,Config.PlayerOffSet,Config.PlayerLength,Config.PlayerWidth,(0,0,255)),
-    Player((Config.WindowWidth-Config.PlayerLength)/2,Config.WindowHeight-Config.PlayerWidth-Config.PlayerOffSet,Config.PlayerLength,Config.PlayerWidth,(128,128,0))
+    Player(Config.PlayerOffSet-Config.PlayerWidth,(Config.WindowHeight-Config.PlayerLength)/2,Config.PlayerWidth,Config.PlayerLength,0,False,(255,0,0)),
+    Player(Config.WindowWidth-Config.PlayerOffSet,(Config.WindowHeight-Config.PlayerLength)/2,Config.PlayerWidth,Config.PlayerLength,1,False,(0,255,0)),
+    Player((Config.WindowWidth-Config.PlayerLength)/2,Config.PlayerOffSet-Config.PlayerWidth,Config.PlayerLength,Config.PlayerWidth,2,False,(0,0,255)),
+    Player((Config.WindowWidth-Config.PlayerLength)/2,Config.WindowHeight-Config.PlayerOffSet,Config.PlayerLength,Config.PlayerWidth,3,True,(128,128,0))
     ]
 
 
 def render(win):
     win.fill((255,255,255))
     for p in pos:
-        p.draw(win)
+        if p.isActive:
+            p.draw(win)
     pg.display.update()
 
 def main():
@@ -32,7 +33,7 @@ def main():
                 run =False
                 pg.quit()
         
-        pos[2].move()
+        pos[3].move()
         render(win)
 
 main()

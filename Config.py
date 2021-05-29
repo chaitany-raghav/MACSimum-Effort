@@ -8,6 +8,10 @@ WindowWidth=500
 PlayerLength=70
 PlayerWidth=10
 
+BallRadius=15
+
+BallSpeed=3
+
 PlayerOffSet=30
 
 FPS=60

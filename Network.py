@@ -1,6 +1,5 @@
 import Config 
 import socket
-import Config
 import pickle
 
 class Network:
