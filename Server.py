@@ -14,41 +14,48 @@ try:
     s.bind((server,port))
 except socket.error as e:
     print(e)
-
-#the server has stared 
+ 
 s.listen(maxPlayerCount)
 print("Wating for a connection,Server Started")
 
+def read_pos(str):
+    str =str.split(',')
+    return int(str[0]),int(str[1])
 
-def threaded_client(conn):
-    #first message showing the connection was succesful
-    conn.send(str.encode("Connected"))
+def make_pos(tup):
+    return str(tup[0])+","+str(tup[1])
+
+pos=[(0,0),(100,100)]
+
+def threaded_client(conn,Player):
+    conn.send(str.encode(make_pos(pos[Player])))
     reply=""
     while True:
         try:
-            #meddage recived form the client
-            data=conn.recv(2048)
-            #the reply is the data that we recived 
-            #we can use this reply to send more useful information in the future
-            reply=data.decode("utf-8")
-
+            data=read_pos(conn.recv(2048).decode())
+            pos[Player]=data
             if not data:
                 print("Disconnected")
                 break
             else:
-                print("Recived:",reply)
-                print("Sending:",reply)
-            #sending a reply back to the client according to the the meaadge that we recived 
-            conn.sendall(str.encode(reply))
+                if Player==1:
+                    reply=pos[0]
+                else:
+                    reply=pos[1]
+
+                print("Recived:",data)
+                print("Sending:",reply) 
+
+            conn.sendall(str.encode(make_pos(reply)))
         except:
             break
     
     print("Lost connection")
     conn.close()
 
+currestPlayer = 0
 while True:
     conn,addr=s.accept()
-    #prints the IP address of the client
     print("Connecting to:",addr)
-    #creatring a threaded function so that the loop executin does not stop
-    start_new_thread(threaded_client,(conn,))
+    start_new_thread(threaded_client,(conn,currestPlayer))
+    currestPlayer+=1
