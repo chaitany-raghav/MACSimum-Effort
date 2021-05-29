@@ -7,6 +7,8 @@ class Network:
         self.server = "10.0.0.2"
         self.port = 5555
         self.addr = (self.server,self.port)
+        #id will contain the information sent the the server
+        #It acts as a basic Acknoledgemnt that the connecton was succesful
         self.id = self.connect()
         print(self.id)
 
@@ -19,7 +21,9 @@ class Network:
 
     def send(self,data):
         try:
+            #sending the data to the server
             self.client.send(str.encode(data))
+            #returning the meaasge recived bt the server
             return self.client.recv(2048).decode()
 
         except socket.error as e:
