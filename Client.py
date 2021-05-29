@@ -9,6 +9,7 @@ height = Config.WindowHeight
 
 win = pg.display.set_mode((width,height))
 pg.display.set_caption("Client")
+image = pg.image.load(r'images\bg.jpg')
 
 
 PlayerID=-1
@@ -16,6 +17,7 @@ PlayerID=-1
 def redrawWindow(win,players,ball):
 
     win.fill((255,255,255))
+    win.blit(image, (0, 0))
     for p in players:
         if p.isActive:
             p.draw(win)
@@ -31,6 +33,8 @@ def main():
     PlayerID=p.id
     clock=pg.time.Clock()
     while run:
+        pg.mixer.music.load(r'sounds\mixkit-mystwrious-bass-pulse-2298.wav')
+        pg.mixer.music.play(-1, 0.0)
         clock.tick(Config.FPS)
         data=n.send(p)
         for event in pg.event.get():
