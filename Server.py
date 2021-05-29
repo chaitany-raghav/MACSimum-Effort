@@ -19,6 +19,7 @@ print("Wating for a connection,Server Started")
 
 
 def threaded_client(conn):
+    conn.send(str.encode("Connected"))
     reply=""
     while True:
         try:
@@ -30,15 +31,17 @@ def threaded_client(conn):
                 break
             else:
                 print("Recived:",reply)
-                print("Sending",reply)
+                print("Sending:",reply)
         
             conn.sendall(str.encode(reply))
         except:
             break
-        
+    
+    print("Lost connection")
+    conn.close()
 
 while True:
-    conn=addr=s.accept()
+    conn,addr=s.accept()
     print("Connecting to:",addr)
 
-    start_new_thread(threaded_client(conn))
+    start_new_thread(threaded_client,(conn,))
