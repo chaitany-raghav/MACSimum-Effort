@@ -1,4 +1,4 @@
-ServerIP="localhost"
+ServerIP="10.0.0.2"
 ServerPort=5555
 
 PlayerSpeed=3
