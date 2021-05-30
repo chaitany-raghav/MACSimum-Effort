@@ -26,12 +26,12 @@ print("Wating for a connection,Server Started")
 
 
 pos=[
-    Player(Config.PlayerOffSet-Config.PlayerWidth,(Config.WindowHeight-100-Config.PlayerLength)/2,Config.PlayerWidth,Config.PlayerLength,0,False,(255,0,0)),
-    Player(Config.WindowWidth-Config.PlayerOffSet,(Config.WindowHeight-100-Config.PlayerLength)/2,Config.PlayerWidth,Config.PlayerLength,1,False,(0,255,0)),
+    Player(Config.PlayerOffSet-Config.PlayerWidth,(Config.WindowHeight-Config.PlayerLength)/2,Config.PlayerWidth,Config.PlayerLength,0,False,(255,0,0)),
+    Player(Config.WindowWidth-Config.PlayerOffSet,(Config.WindowHeight-Config.PlayerLength)/2,Config.PlayerWidth,Config.PlayerLength,1,False,(0,255,0)),
     Player((Config.WindowWidth-Config.PlayerLength)/2,Config.PlayerOffSet-Config.PlayerWidth,Config.PlayerLength,Config.PlayerWidth,2,False,(0,0,255)),
-    Player((Config.WindowWidth-Config.PlayerLength)/2,Config.WindowHeight-100-Config.PlayerOffSet,Config.PlayerLength,Config.PlayerWidth,3,False,(128,128,0))
+    Player((Config.WindowWidth-Config.PlayerLength)/2,Config.WindowHeight-Config.PlayerOffSet,Config.PlayerLength,Config.PlayerWidth,3,False,(128,128,0))
     ]
-ball=Ball(Config.WindowWidth/2,(Config.WindowHeight-100)/2,Config.BallRadius,Config.BallSpeed,(20,60,99))
+ball=Ball(Config.WindowWidth/2,(Config.WindowHeight)/2,Config.BallRadius,Config.BallSpeed,(20,60,99))
 score=["----","----","----","----"]
 music=[]
 def ball_mover(p,b,s,m):

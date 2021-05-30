@@ -12,7 +12,7 @@ height = Config.WindowHeight
 
 pg.font.init()
 
-win = pg.display.set_mode((width,height))
+win = pg.display.set_mode((width,height+Config.ScoreBoardHeight))
 pg.display.set_caption("Client")
 image = pg.image.load(r'images\bg.jpg')
 #image = pg.transform.scale(pg.image.load(r'images\bg.jpg'), (width,height))
@@ -25,13 +25,13 @@ PlayerID=-1
 font = pg.font.Font('font\Creamy Coconut.ttf', 32)
 
 def show_score(win,score_value,x, y):
-    if x==100 and y==500:
+    if x==Config.ScoreBoardHeight and y==Config.WindowHeight:
         score = font.render("Score : " + str(score_value), True, (255, 0, 0))
-    if x==300 and y==500:
+    if x==Config.WindowWidth-2*Config.ScoreBoardHeight and y==Config.WindowHeight:
         score = font.render("Score : " + str(score_value), True, (0, 255, 0))
-    if x==100 and y==550:
+    if x==Config.ScoreBoardHeight and y==Config.WindowHeight+(Config.ScoreBoardHeight/2):
         score = font.render("Score : " + str(score_value), True, (0, 0, 250))
-    if x==300 and y==550:
+    if x==Config.WindowWidth-2*Config.ScoreBoardHeight and y==Config.WindowHeight+(Config.ScoreBoardHeight/2):
         score = font.render("Score : " + str(score_value), True, (128, 128, 0))
     win.blit(score, (x, y))
 
@@ -43,13 +43,13 @@ def redrawWindow(win,players,ball,scores):
         if p.isActive:
             p.draw(win)
             if p.id==0:
-                show_score(win,scores[p.id],100,500)
+                show_score(win,scores[p.id],Config.ScoreBoardHeight,Config.WindowHeight)
             if p.id==1:
-                show_score(win,scores[p.id],300,500)
+                show_score(win,scores[p.id],Config.WindowWidth-2*Config.ScoreBoardHeight,Config.WindowHeight)
             if p.id==2:
-                show_score(win,scores[p.id],100,550)
+                show_score(win,scores[p.id],Config.ScoreBoardHeight,Config.WindowHeight+(Config.ScoreBoardHeight/2))
             if p.id==3:
-                show_score(win,scores[p.id],300,550)
+                show_score(win,scores[p.id],Config.WindowWidth-2*Config.ScoreBoardHeight,Config.WindowHeight+(Config.ScoreBoardHeight/2))
     
     ball.draw(win)
     pg.display.update()

@@ -1,12 +1,14 @@
-ServerIP="192.168.29.28"
+ServerIP="10.0.0.2"
 ServerPort=5555
 
 PlayerSpeed=3
 
-WindowHeight=600
+WindowHeight=500
 WindowWidth=500
 PlayerLength=70
 PlayerWidth=10
+
+ScoreBoardHeight=100
 
 BallRadius=15
 
