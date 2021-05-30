@@ -14,7 +14,9 @@ win = pg.display.set_mode((width,height))
 pg.display.set_caption("Client")
 image = pg.image.load(r'images\bg.jpg')
 #image = pg.transform.scale(pg.image.load(r'images\bg.jpg'), (width,height))
-
+#soundObj = pg.mixer.Sound('sounds\mixkit-retro-game-notification-212.wav')
+#soundObj2 = pg.mixer.Sound('sounds\mixkit-arcade-retro-game-over-213.wav')
+sounds=[pg.mixer.Sound('sounds\mixkit-retro-game-notification-212.wav'),pg.mixer.Sound('sounds\mixkit-arcade-retro-game-over-213.wav')]
 
 PlayerID=-1
 
@@ -47,6 +49,9 @@ def main():
             if event.type ==pg.QUIT:
                 run =False
                 pg.quit()
+        music=data[3]
+        for m in music:
+            sounds[m].play()
         print(data)
         p.move()
         redrawWindow(win,data[0],data[1])

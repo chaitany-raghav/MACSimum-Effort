@@ -7,9 +7,8 @@ import Config
 
 pg.mixer.init()
 
-soundObj = pg.mixer.Sound('sounds\mixkit-retro-game-notification-212.wav')
-soundObj2 = pg.mixer.Sound('sounds\mixkit-arcade-retro-game-over-213.wav')
-
+#soundObj = pg.mixer.Sound('sounds\mixkit-retro-game-notification-212.wav')  ##will be representeb by 0
+#soundObj2 = pg.mixer.Sound('sounds\mixkit-arcade-retro-game-over-213.wav')  ##eill be represented by 1
 
 class Ball:
     def __init__(self,x,y,r,s,colour):
@@ -30,8 +29,8 @@ class Ball:
     def update(self):
         self.circle=(self.x,self.y)
 
-    def move(self,players,score):
-        self.checkCollision(players,score)
+    def move(self,players,score,music):
+        self.checkCollision(players,score,music)
         self.x+=self.vx
         self.y+=self.vy
 
@@ -45,7 +44,7 @@ class Ball:
         self.vy=self.s*math.sin(temp)
         self.lastTouch=-1
 
-    def checkCollision(self,players,score):
+    def checkCollision(self,players,score,music):
         relaxation=5
         d=self.x-Config.PlayerOffSet-self.radius
         if d<0:#collision with left wall
@@ -56,13 +55,15 @@ class Ball:
                         if not self.lastTouch==-1:
                             score[self.lastTouch]+=1
                     score[0]-=1
-                    soundObj2.play()
+                    music.append(1)
+                    #soundObj2.play()
                     self.reset()
                 else: #the ball was hit
                     self.lastTouch=0
                     score[0]+=1
                     self.vx=-1*self.vx
-                    soundObj.play()
+                    music.append(0)
+                    #soundObj.play()
             else:#just act as a wall
                 self.vx=-1*self.vx
 
@@ -75,13 +76,15 @@ class Ball:
                         if not self.lastTouch==-1:
                             score[self.lastTouch]+=1
                     score[2]-=1
-                    soundObj2.play()
+                    music.append(1)
+                    #soundObj2.play()
                     self.reset()
                 else:
                     self.lastTouch=2
                     score[2]+=1
                     self.vy=-1*self.vy
-                    soundObj.play()
+                    music.append(0)
+                    #soundObj.play()
             else:
                 self.vy=-1*self.vy
 
@@ -94,13 +97,15 @@ class Ball:
                         if not self.lastTouch==-1:
                             score[self.lastTouch]+=1
                     score[1]-=1
-                    soundObj2.play()
+                    music.append(1)
+                    #soundObj2.play()
                     self.reset()
                 else: 
                     score[1]+=1
                     self.lastTouch=1
                     self.vx=-1*self.vx
-                    soundObj.play()
+                    music.append(0)
+                    #soundObj.play()
             else:
                 self.vx=-1*self.vx
 
@@ -114,13 +119,15 @@ class Ball:
                         if not self.lastTouch==-1:
                             score[self.lastTouch]+=1
                     score[3]-=1
-                    soundObj2.play()
+                    music.append(1)
+                    #soundObj2.play()
                     self.reset()
                 else:
                     score[3]+=1
                     self.lastTouch=3
                     self.vy=-1*self.vy
-                    soundObj.play()
+                    music.append(0)
+                    #soundObj.play()
             else:
                 self.vy=-1*self.vy
         

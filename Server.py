@@ -33,11 +33,13 @@ pos=[
     ]
 ball=Ball(Config.WindowWidth/2,Config.WindowHeight/2,Config.BallRadius,Config.BallSpeed,(20,60,99))
 score=["----","----","----","----"]
-def ball_mover(p,b,s):
+music=[]
+def ball_mover(p,b,s,m):
     clock=pg.time.Clock()
     while True:
         clock.tick(Config.FPS)
-        b.move(p,s)
+        m.clear()
+        b.move(p,s,m)
 
 def threaded_client(conn,Player):
     pos[Player].isActive=True
@@ -56,6 +58,7 @@ def threaded_client(conn,Player):
                 temp.append(pos)
                 temp.append(ball)
                 temp.append(score)
+                temp.append(music)
                 reply=pickle.dumps(temp)
                 #print("Recived:",data)
                 #print("Sending:",reply) 
@@ -71,7 +74,7 @@ def threaded_client(conn,Player):
     print("Lost connection")
     conn.close()
 
-start_new_thread(ball_mover,(pos,ball,score))
+start_new_thread(ball_mover,(pos,ball,score,music))
 
 while True:
     conn,addr=s.accept()
