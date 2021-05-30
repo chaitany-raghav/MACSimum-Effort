@@ -1,9 +1,9 @@
-ServerIP="10.0.0.128"
+ServerIP="192.168.29.28"
 ServerPort=5555
 
 PlayerSpeed=3
 
-WindowHeight=500
+WindowHeight=600
 WindowWidth=500
 PlayerLength=70
 PlayerWidth=10

@@ -10,6 +10,8 @@ from Ball import Ball
 width = Config.WindowWidth
 height = Config.WindowHeight
 
+pg.font.init()
+
 win = pg.display.set_mode((width,height))
 pg.display.set_caption("Client")
 image = pg.image.load(r'images\bg.jpg')
@@ -20,13 +22,35 @@ sounds=[pg.mixer.Sound('sounds\mixkit-retro-game-notification-212.wav'),pg.mixer
 
 PlayerID=-1
 
-def redrawWindow(win,players,ball):
+font = pg.font.Font('font\Creamy Coconut.ttf', 32)
+
+def show_score(win,score_value,x, y):
+    if x==100 and y==500:
+        score = font.render("Score : " + str(score_value), True, (255, 0, 0))
+    if x==300 and y==500:
+        score = font.render("Score : " + str(score_value), True, (0, 255, 0))
+    if x==100 and y==550:
+        score = font.render("Score : " + str(score_value), True, (0, 0, 250))
+    if x==300 and y==550:
+        score = font.render("Score : " + str(score_value), True, (128, 128, 0))
+    win.blit(score, (x, y))
+
+def redrawWindow(win,players,ball,scores):
 
     win.fill((255,255,255))
     win.blit(image, (0, 0))
     for p in players:
         if p.isActive:
             p.draw(win)
+            if p.id==0:
+                show_score(win,scores[p.id],100,500)
+            if p.id==1:
+                show_score(win,scores[p.id],300,500)
+            if p.id==2:
+                show_score(win,scores[p.id],100,550)
+            if p.id==3:
+                show_score(win,scores[p.id],300,550)
+    
     ball.draw(win)
     pg.display.update()
 
@@ -54,6 +78,6 @@ def main():
             sounds[m].play()
         #print(data)
         p.move()
-        redrawWindow(win,data[0],data[1])
+        redrawWindow(win,data[0],data[1],data[2])
 
 main()
