@@ -1,7 +1,6 @@
 from Ball import Ball
 import socket
 from _thread import *
-import sys
 import Config
 from Player import Player
 import pickle
@@ -73,5 +72,12 @@ start_new_thread(ball_mover,(pos,ball))
 while True:
     conn,addr=s.accept()
     print("Connecting to:",addr)
-    start_new_thread(threaded_client,(conn,currentPlayer))
-    currentPlayer+=1
+    #start_new_thread(threaded_client,(conn,currentPlayer))
+    #currentPlayer+=1
+    
+    for p in pos:
+        if not p.isActive:
+            start_new_thread(threaded_client,(conn,p.id))
+            currentPlayer+=1
+            break
+    
