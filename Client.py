@@ -46,17 +46,19 @@ def show_score(win,score_value,x, y):
 fun=0
 ptr=0
 def redrawWindow(win,players,ball,scores):
+    normal=60
+    mandel=15
     global ptr
     global fun
     fun+=1
     win.fill((255,255,255))
-    if fun>60 and fun<75:
+    if fun>normal and fun<normal+mandel:
         win.blit(mandel_wut[ptr],(0,0))
     else:
         win.blit(image, (0, 0))
-    if fun>75:
+    if fun>normal+mandel:
         ptr+=1
-        ptr=ptr%8
+        ptr=ptr%(len(mandel_wut))
         fun=0
     for p in players:
         if p.isActive:

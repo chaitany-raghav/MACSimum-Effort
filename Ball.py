@@ -15,7 +15,7 @@ class Ball:
         self.x=x
         self.y=y
         self.s=s
-        temp=random.randint(0,10)
+        temp=random.uniform(0,4*math.pi)+random.uniform(0,2*math.pi)+random.uniform(0,math.pi)+random.uniform(0,math.pi/2)+random.uniform(0,math.pi/4)+random.uniform(0,math.pi/8)+random.uniform(0,math.pi/16)+random.uniform(0,math.pi/32)+random.uniform(0,math.pi/64)+random.uniform(0,math.pi/128)+random.uniform(0,math.pi/256)
         self.vx=s*math.cos(temp)
         self.vy=s*math.sin(temp)
         self.radius=r
@@ -39,13 +39,13 @@ class Ball:
     def reset(self):
         self.x=Config.WindowWidth/2
         self.y=Config.WindowHeight/2
-        temp=random.randint(0,10)
+        temp=random.uniform(0,4*math.pi)+random.uniform(0,2*math.pi)+random.uniform(0,math.pi)+random.uniform(0,math.pi/2)+random.uniform(0,math.pi/4)+random.uniform(0,math.pi/8)+random.uniform(0,math.pi/16)+random.uniform(0,math.pi/32)+random.uniform(0,math.pi/64)+random.uniform(0,math.pi/128)+random.uniform(0,math.pi/256)
         self.vx=self.s*math.cos(temp)
         self.vy=self.s*math.sin(temp)
         self.lastTouch=-1
 
     def checkCollision(self,players,score,music):
-        relaxation=5
+        relaxation=13
         d=self.x-Config.PlayerOffSet-self.radius
         if d<0:#collision with left wall
             if players[0].isActive:#player for the left wall is active
