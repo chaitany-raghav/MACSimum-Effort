@@ -52,7 +52,7 @@ def main():
         music=data[3]
         for m in music:
             sounds[m].play()
-        print(data)
+        #print(data)
         p.move()
         redrawWindow(win,data[0],data[1])
 

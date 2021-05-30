@@ -46,6 +46,7 @@ def threaded_client(conn,Player):
     score[Player]=0
     conn.send(pickle.dumps(pos[Player]))
     while True:
+        temp2=music.copy()
         try:
             #ball.move()
             data=pickle.loads(conn.recv(2048))
@@ -58,11 +59,11 @@ def threaded_client(conn,Player):
                 temp.append(pos)
                 temp.append(ball)
                 temp.append(score)
-                temp.append(music)
+                temp.append(temp2)
                 reply=pickle.dumps(temp)
                 #print("Recived:",data)
                 #print("Sending:",reply) 
-                print(score)
+                #print(score)
             conn.sendall(reply)
         except:
             break
