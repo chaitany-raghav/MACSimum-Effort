@@ -1,9 +1,11 @@
 import pygame as pg
+
+from _thread import *
+
 from Network import Network
 from Player import *
 import Config
 from Ball import Ball
-from _thread import *
 
 width = Config.WindowWidth
 height = Config.WindowHeight
@@ -45,7 +47,7 @@ def main():
             if event.type ==pg.QUIT:
                 run =False
                 pg.quit()
-        #print(data)
+        print(data)
         p.move()
         redrawWindow(win,data[0],data[1])
 

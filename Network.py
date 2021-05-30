@@ -1,6 +1,7 @@
-import Config 
 import socket
 import pickle
+
+import Config 
 
 class Network:
     def __init__(self):

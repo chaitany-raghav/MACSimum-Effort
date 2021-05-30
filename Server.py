@@ -1,10 +1,11 @@
-from Ball import Ball
+import pygame as pg
+
 import socket
 from _thread import *
+import pickle
+
 import Config
 from Player import Player
-import pickle
-import pygame as pg
 from Ball import Ball
 
 #The ip of the server
@@ -31,15 +32,16 @@ pos=[
     Player((Config.WindowWidth-Config.PlayerLength)/2,Config.WindowHeight-Config.PlayerOffSet,Config.PlayerLength,Config.PlayerWidth,3,False,(128,128,0))
     ]
 ball=Ball(Config.WindowWidth/2,Config.WindowHeight/2,Config.BallRadius,Config.BallSpeed,(20,60,99))
-
-def ball_mover(p,b):
+score=["----","----","----","----"]
+def ball_mover(p,b,s):
     clock=pg.time.Clock()
     while True:
         clock.tick(Config.FPS)
-        b.move(p)
+        b.move(p,s)
 
 def threaded_client(conn,Player):
     pos[Player].isActive=True
+    score[Player]=0
     conn.send(pickle.dumps(pos[Player]))
     while True:
         try:
@@ -53,21 +55,23 @@ def threaded_client(conn,Player):
                 temp=[]
                 temp.append(pos)
                 temp.append(ball)
+                temp.append(score)
                 reply=pickle.dumps(temp)
                 #print("Recived:",data)
                 #print("Sending:",reply) 
-
+                print(score)
             conn.sendall(reply)
         except:
             break
 
     global currentPlayer
     pos[Player].isActive=False
+    score[Player]="----"
     currentPlayer-=1
     print("Lost connection")
     conn.close()
 
-start_new_thread(ball_mover,(pos,ball))
+start_new_thread(ball_mover,(pos,ball,score))
 
 while True:
     conn,addr=s.accept()
