@@ -14,11 +14,19 @@ pg.font.init()
 
 win = pg.display.set_mode((width,height+Config.ScoreBoardHeight))
 pg.display.set_caption("Client")
-image = pg.image.load(r'images\bg.jpg')
+image = pg.image.load(r'images\BackgroundImage.jpg')
 #image = pg.transform.scale(pg.image.load(r'images\bg.jpg'), (width,height))
+mandel_wut=[pg.transform.scale(pg.image.load(r'images\\Mandel1.jpg'), (width,height+Config.ScoreBoardHeight)),
+            pg.transform.scale(pg.image.load(r'images\\Mandel2.jpg'), (width,height+Config.ScoreBoardHeight)),
+            pg.transform.scale(pg.image.load(r'images\\Mandel3.jpg'), (width,height+Config.ScoreBoardHeight)),
+            pg.transform.scale(pg.image.load(r'images\\Mandel4.jpg'), (width,height+Config.ScoreBoardHeight)),
+            pg.transform.scale(pg.image.load(r'images\\Mandel5.jpg'), (width,height+Config.ScoreBoardHeight)),
+            pg.transform.scale(pg.image.load(r'images\\Mandel6.jpg'), (width,height+Config.ScoreBoardHeight)),
+            pg.transform.scale(pg.image.load(r'images\\Mandel7.jpg'), (width,height+Config.ScoreBoardHeight)),
+            pg.transform.scale(pg.image.load(r'images\\Mandel8.jpg'), (width,height+Config.ScoreBoardHeight))]
 #soundObj = pg.mixer.Sound('sounds\mixkit-retro-game-notification-212.wav')
 #soundObj2 = pg.mixer.Sound('sounds\mixkit-arcade-retro-game-over-213.wav')
-sounds=[pg.mixer.Sound('sounds\mixkit-retro-game-notification-212.wav'),pg.mixer.Sound('sounds\mixkit-arcade-retro-game-over-213.wav')]
+sounds=[pg.mixer.Sound('sounds\BallHit.wav'),pg.mixer.Sound('sounds\BallMiss.wav')]
 
 PlayerID=-1
 
@@ -35,10 +43,21 @@ def show_score(win,score_value,x, y):
         score = font.render("Score : " + str(score_value), True, (128, 128, 0))
     win.blit(score, (x, y))
 
+fun=0
+ptr=0
 def redrawWindow(win,players,ball,scores):
-
+    global ptr
+    global fun
+    fun+=1
     win.fill((255,255,255))
-    win.blit(image, (0, 0))
+    if fun>60 and fun<75:
+        win.blit(mandel_wut[ptr],(0,0))
+    else:
+        win.blit(image, (0, 0))
+    if fun>75:
+        ptr+=1
+        ptr=ptr%8
+        fun=0
     for p in players:
         if p.isActive:
             p.draw(win)
@@ -64,7 +83,7 @@ def main():
     PlayerID=p.id
     pg.display.set_caption("Player "+str(PlayerID+1))
     clock=pg.time.Clock()
-    pg.mixer.music.load(r'sounds\mixkit-mystwrious-bass-pulse-2298.wav')
+    pg.mixer.music.load(r'sounds\\BackgroundSound.wav')
     pg.mixer.music.play(-1)
     while run:
         clock.tick(Config.FPS)
